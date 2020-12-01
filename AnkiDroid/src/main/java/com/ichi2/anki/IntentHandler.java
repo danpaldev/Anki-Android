@@ -140,15 +140,20 @@ public class IntentHandler extends Activity {
         // Launcher intents should start DeckPicker if no other task exists,
         // otherwise go to previous task
         Timber.i("Launching DeckPicker");
+        
         reloadIntent.setAction(Intent.ACTION_MAIN);
         reloadIntent.addCategory(Intent.CATEGORY_LAUNCHER);
         reloadIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         
-        //If you call finish() after an intent you can't go back to the previous activity with the "back" button
-        //So basically, we're makin this IntentHandler activity UNUSABLE for the user, as this activity
-        //exists only to handle all the possible intents that could launch the application.
-            //https://stackoverflow.com/a/43363868/13954598
+                
+        //A special variation to launch an activity only if a new activity instance is needed to handle the given Intent.
         startActivityIfNeeded(reloadIntent, 0);
+        
+        
+        //If you call finish() after an intent you can't go back to the previous activity with the "back" button
+        //So, we're making this IntentHandler activity UNUSABLE for the user!
+          //Makes sense because this activity only handles logic
+            //https://stackoverflow.com/a/43363868/13954598
         finish();
     }
 
