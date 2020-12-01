@@ -143,6 +143,11 @@ public class IntentHandler extends Activity {
         reloadIntent.setAction(Intent.ACTION_MAIN);
         reloadIntent.addCategory(Intent.CATEGORY_LAUNCHER);
         reloadIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        
+        //If you call finish() after an intent you can't go back to the previous activity with the "back" button
+        //So basically, we're makin this IntentHandler activity UNUSABLE for the user, as this activity
+        //exists only to handle all the possible intents that could launch the application.
+            //https://stackoverflow.com/a/43363868/13954598
         startActivityIfNeeded(reloadIntent, 0);
         finish();
     }
